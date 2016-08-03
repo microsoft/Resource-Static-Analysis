@@ -15,7 +15,7 @@ Please create a new issue and tag the issue as "bug" or "enhancement" as appropr
 ## Other discussions
 Join us on Slack and join the conversation in real time.
 
-* [Slack](https://Resource-Static-Analysis.slack.com/signup)
+* [Slack](https://Resource-Analysis.slack.com/signup)
 
 
 ## Filing issues
