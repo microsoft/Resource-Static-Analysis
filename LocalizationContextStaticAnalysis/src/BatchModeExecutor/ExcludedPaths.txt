@@ -1,0 +1,16 @@
+﻿# Any line starting with # will be treated as a comment and ignored by the code
+#
+# Place each partial match string on a new line. For example a line with test/ will exclude any file with a path containing the string test/
+# Any paths that don't match an exclusion entry are implicitly included for analysis.
+# *******Avoid unintentional exclusions by ensuring the string is as specific as possible. Use the full path where possible*******
+#
+# The NOT operator (!) will be honored when prepended to entries in this file.
+# e.g. a line with !/dev/src/ will exclude everything other than the /dev/src/ path
+#
+# AND logic will be used to allow multiple NOT entries 
+# e.g.
+#	 !/dev/src
+#        !/dev/res
+#
+# This will include paths under dev/src and paths under dev/res but exclude everything else
+# *******Use the ! operator carefully as it will implicitly exclude all paths that don't match*******

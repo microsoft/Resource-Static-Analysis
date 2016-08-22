@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license. -->
+<!-- See LICENSE in the project root for license information -->
+<xsd:schema id="ResourceStaticAnalysisConfig"
+    targetNamespace="http://microsoft.com/ResourceStaticAnalysis/EngineConfig.xsd"
+    elementFormDefault="qualified"
+    xmlns:obc="http://microsoft.com/ResourceStaticAnalysis/EngineConfig.xsd"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
+  <!--Definition of simple types-->
+  <xsd:simpleType name="dataSourceAttribute">
+    <xsd:restriction base = "xsd:string">
+      <xsd:enumeration value = "MiscData"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ruleContainerType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Module"/>
+      <xsd:enumeration value="Source"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name ="classificationObjectType">
+    <xsd:restriction base = "xsd:string">
+      <xsd:enumeration value = "LocResource"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="filteringExpression">
+    <xsd:restriction base = "xsd:string"/>
+  </xsd:simpleType>
+  <xsd:complexType name="ruleContainer">
+    <xsd:all>
+      <xsd:element name="Path" type="obc:filePath" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="FilteringExpression" type="obc:filteringExpression" minOccurs="0" maxOccurs="1"/>
+    </xsd:all>
+    <xsd:attribute name="type" type="obc:ruleContainerType" use="required"/>
+    <xsd:attribute name="scope" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:simpleType name="filePath">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="kind">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Microsoft.ResourceStaticAnalysis.Core.Output.Specialized.XMLDOMOutputWriter"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="path">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="listOfStrings">
+    <xsd:list itemType="xsd:string"/>
+  </xsd:simpleType>
+  <!--Definition of complex types-->
+  <xsd:complexType name="typeSpecification">
+    <xsd:sequence>
+      <xsd:element name="TypeName" type="xsd:string" />
+      <xsd:element name="AssemblyName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="param">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="Name" type="xsd:string" />
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="miscData">
+    <xsd:sequence>
+      <xsd:element name="Param" type="obc:param" minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name = "sourceLocation">
+    <xsd:complexContent>
+      <xsd:restriction base="xsd:anyType">
+        <xsd:choice>
+          <xsd:element name="MiscData" type="obc:miscData" minOccurs="1" maxOccurs="unbounded"/>
+          <xsd:element name="Path"  type="obc:filePath" minOccurs="1" maxOccurs="1"/>
+        </xsd:choice>
+      </xsd:restriction>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="dataSource">
+    <xsd:sequence minOccurs="1" maxOccurs="1">
+      <xsd:element name="SourceLocation" type="obc:sourceLocation"/>
+    </xsd:sequence>
+    <xsd:attribute name="Type" use="required" type="xsd:string" />
+    <xsd:attribute name="Primary" use="optional" type="xsd:boolean" />
+  </xsd:complexType>
+  <xsd:complexType name ="dataSourcePackage">
+    <xsd:all>
+      <xsd:element name ="DataSources" minOccurs="1" maxOccurs="1">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="DataSource" type="obc:dataSource" minOccurs="1" maxOccurs="unbounded" />      
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ClassificationObjectType" type="xsd:string" minOccurs="1" maxOccurs="1" />     
+    </xsd:all>
+  </xsd:complexType>
+
+  <!--ResourceStaticAnalysis engine document schema-->
+  <xsd:element name="EngineConfig">
+    <xsd:complexType>
+      <xsd:all minOccurs="1">
+        <xsd:element name="DataSourcePackages" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="DataSourcePackage" type="obc:dataSourcePackage" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="DefaultFilteringExpression" type="obc:filteringExpression" minOccurs="0" maxOccurs="1"/>
+        <xsd:element name="BinaryRuleReferences" minOccurs="0" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Reference" type="obc:filePath" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="SourceRuleReferences" minOccurs="0" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Reference" type="obc:filePath" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="Rules" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="RuleContainer" type="obc:ruleContainer" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="DisabledRules" minOccurs="0" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="RuleName" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="ClassificationObjectTypes" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Type" type="obc:typeSpecification" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="DataSourceProviderTypes" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Type" type="obc:typeSpecification" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="PropertyAdapterTypes" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Type" type="obc:typeSpecification" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="ClassificationObjectAdapterTypes" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Type" type="obc:typeSpecification" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="AssemblyResolverPaths" minOccurs="0" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Path" type="obc:filePath" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="TempAssemblyDirectory" type="obc:path" minOccurs="0" maxOccurs="1"/>
+        <xsd:element name="Output" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="OutputConfig" minOccurs="1" maxOccurs="unbounded">
+                <xsd:complexType>
+                  <xsd:all>
+                    <xsd:element name="Kind" type="obc:typeSpecification" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="Path"  type="obc:path" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="Schema" type="obc:path" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="PropertiesToInclude" minOccurs="0" maxOccurs="1">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="Property" minOccurs="1" maxOccurs="unbounded" type="xsd:string"/>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:all>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:all>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

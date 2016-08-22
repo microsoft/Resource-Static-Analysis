@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>OSLEBot.$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://mseng.visualstudio.com/DefaultCollection/MS%20International</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Common OSLEBotEngine</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>OSLEBot</tags>
+    <dependencies>
+     <group targetFramework="net45">
+      <dependency id="OSLEBot.AssemblyResolver" version="2016.3.23.17" />
+      <dependency id="OSLEBot.Practices.Caching" version="2016.3.25.5" />
+     </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\..\dependencies\XMLToolBox.dll" target="lib/net45" />
+    <file src="..\..\dependencies\Microsoft.Localization.dll" target="lib/net45" />
+    <file src="..\..\dependencies\Wintellect.Threading.dll" target="lib/net45" />
+  </files>
+</package>
