@@ -110,9 +110,7 @@ namespace Microsoft.ResourceStaticAnalysis.Core.Engine
 
         #region Public API
         /// <summary>
-        /// New constructor created by PiotrCi.
-        /// This tests using XML configuration packages.
-        /// This constructor is independent from the 0-args constructor and is incompatible with the older model!
+        /// Constructor
         /// </summary>
         /// <param name="configuration">Configuration read from disk or created in memory</param>
         public ResourceStaticAnalysisEngine(EngineConfig configuration)
