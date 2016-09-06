@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license. -->
+<!-- See LICENSE in the project root for license information -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ResourceStaticAnalysis">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="co">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="props">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="property">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="value" type="xs:string" />
+                        </xs:sequence>
+                        <xs:attribute name="key" type="xs:string" use="required" />
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="rules">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="rule">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="item">
+                            <xs:complexType>
+                              <xs:attribute name="result" type="xs:string" use="required" />
+                              <xs:attribute name="message" type="xs:string" use="required" />
+                              <xs:attribute name="severity" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="checks" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="result" type="xs:string" use="required" />
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                        <xs:attribute name="severity" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="key" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:decimal" use="required" />
+      <xs:attribute name="start" type="xs:string" use="required" />
+      <xs:attribute name="finish" type="xs:string" use="optional" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
