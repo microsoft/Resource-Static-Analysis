@@ -9,7 +9,8 @@ We are eager to engage and learn from this experience and may even end up Open S
 Further enhance our common Resource Static Analysis toolbox, including supporting additional formats (such as XLIFF) and various validation rules. See also the [Roadmap](https://github.com/Microsoft/Resource-Static-Analysis/wiki/Roadmap).
 
 ##How to contribute
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+First join us on #Slack ![Resource-Static-Analysis Slack channel](https://github.com/Microsoft/Resource-Static-Analysis/blob/master/blob/slack-icon-logo.20x20.png)
+And then please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ##Licensing
 The Resource Static Analysis project is licensed under the [MIT License](LICENSE). 
