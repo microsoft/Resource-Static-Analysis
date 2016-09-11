@@ -10,7 +10,7 @@ Further enhance our common Resource Static Analysis toolbox, including supportin
 
 ##How to contribute
 First join us on #Slack ![Resource-Static-Analysis Slack channel](https://github.com/Microsoft/Resource-Static-Analysis/blob/master/blob/slack-icon-logo.20x20.png)
-And then please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+And then please see the [CONTRIBUTING.md](CONTRIBUTING.md) for more details on logging issues, and making code contributions.
 
 ##Licensing
 The Resource Static Analysis project is licensed under the [MIT License](LICENSE). 
