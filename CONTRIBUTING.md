@@ -40,9 +40,6 @@ Before submitting a feature or substantial code contribution please discuss it w
 
 Here's a few things you should always do when making changes to the code base:
 
-**Engineering guidelines**
-
-The coding, style, and general engineering guidelines are published on the [Engineering guidelines](https://github.com/Microsoft/Resource-Static-Analysis/wiki/Engineering-guidelines) page.
 
 **Commit/Pull Request Format**
 
