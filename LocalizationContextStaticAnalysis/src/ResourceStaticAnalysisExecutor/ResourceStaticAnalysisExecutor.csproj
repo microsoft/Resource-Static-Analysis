@@ -34,11 +34,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.ResourceStaticAnalysis.Configuration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=615a49e5b3f4de92, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ResourceStaticAnalysis.1.0.0\lib\net45\Microsoft.ResourceStaticAnalysis.Configuration.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ResourceStaticAnalysis.1.0.0.3\lib\net45\Microsoft.ResourceStaticAnalysis.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.ResourceStaticAnalysis.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=615a49e5b3f4de92, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ResourceStaticAnalysis.1.0.0\lib\net45\Microsoft.ResourceStaticAnalysis.Core.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ResourceStaticAnalysis.1.0.0.3\lib\net45\Microsoft.ResourceStaticAnalysis.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -58,6 +58,10 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <Content Include="ResourceStaticAnalysisOutput.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CustomTraceListeners\CustomTraceListeners.csproj">

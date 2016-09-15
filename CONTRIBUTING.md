@@ -14,8 +14,7 @@ Please create a new issue and tag the issue as "bug" or "enhancement" as appropr
 
 ## Other discussions
 Join us on Slack and join the conversation in real time.
-
-* [Slack](https://Resource-Analysis.slack.com/signup)
+* ![#Slack icon](https://github.com/Microsoft/Resource-Static-Analysis/blob/master/blob/slack-icon-logo.20x20.png) [#Slack](https://Resource-Analysis.slack.com/signup)
 
 
 ## Filing issues
@@ -41,9 +40,6 @@ Before submitting a feature or substantial code contribution please discuss it w
 
 Here's a few things you should always do when making changes to the code base:
 
-**Engineering guidelines**
-
-The coding, style, and general engineering guidelines are published on the [Engineering guidelines](https://github.com/Microsoft/Resource-Static-Analysis/wiki/Engineering-guidelines) page.
 
 **Commit/Pull Request Format**
 
