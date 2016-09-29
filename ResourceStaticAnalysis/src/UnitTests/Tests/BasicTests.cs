@@ -39,7 +39,7 @@ namespace Microsoft.ResourceStaticAnalysis.UnitTests.Tests
             _resourceStaticAnalysisRedirectedLogger.Flush();
         }
         private TCLogger _resourceStaticAnalysisRedirectedLogger;
-       
+
         [TestMethod]
         public void ResourceStaticAnalysisCanReturnSchemaStream()
         {
@@ -96,6 +96,64 @@ namespace Microsoft.ResourceStaticAnalysis.UnitTests.Tests
                 assemblyResolver.Init();
                 var inputCfg = TestHelpers.CreateSampleConfig(TestContext, @"UnitTests.dll", 6);
                 var engine = new ResourceStaticAnalysisEngine(inputCfg);
+                if (engine.StartRun())
+                {
+                    engine.WaitForJobFinish();
+                }
+                Assert.IsFalse(engine.Monitor.NoOfExceptionsLogged > 0, "Engine reported some execution errors.");
+                Assert.IsTrue(engine.Monitor.TotalNumResults.Equals(26), "Rule results were not as expected");
+            }
+            catch (OperationCanceledException ex)
+            {
+                Assert.Fail("ResourceStaticAnalysis engine failed because {0}", ex.Message);
+            }
+            catch (ResourceStaticAnalysisEngineInitializationException ex) // Thrown when there are no rules to run on the input set.
+            {
+                Assert.Fail("ResourceStaticAnalysis engine failed because {0}", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Test method to test that when ResourceStaticAnalysis is configured with pre-loaded COs and run can still be loaded from module container to RuleManager.
+        /// This is to verify a bug fixing that loading RegisterCOTypes() when preLoadedCOs is true.
+        /// </summary>
+        [TestMethod]
+        [DeploymentItem(@"UnitTests.dll")]
+        public void ResourceStaticAnalysisCanBeConfiguredWithPreLoadedCOsAndRuleCanBeLoadedFromContainerToRuleManager()
+        {
+            try
+            {
+                var assemblyResolver = new AssemblyResolver(TestContext.DeploymentDirectory);
+                assemblyResolver.Init();
+                var inputCfg = TestHelpers.CreateSampleConfig(TestContext, @"UnitTests.dll", 6);
+                var engine = new ResourceStaticAnalysisEngine(inputCfg, true);
+                Assert.IsTrue(engine.CurrentRuleManager.RuleCount.Equals(8), "Rule is not loaded correctly.");
+            }
+            catch (OperationCanceledException ex)
+            {
+                Assert.Fail("ResourceStaticAnalysis engine failed because {0}", ex.Message);
+            }
+            catch (ResourceStaticAnalysisEngineInitializationException ex) // Thrown when there are no rules to run on the input set.
+            {
+                Assert.Fail("ResourceStaticAnalysis engine failed because {0}", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Test method to test that when ResourceStaticAnalysis is configured with pre-loaded COs and run against a module (.dll)
+        /// The result should be no difference regardless of the resource loading methods (Pre-parsed or from DataSource).
+        /// </summary>
+        [TestMethod]
+        [DeploymentItem(@"UnitTests.dll")]
+        public void ResourceStaticAnalysisCanBeConfiguredWithPreLoadedCOsAndRunAgainstModule()
+        {
+            try
+            {
+                var assemblyResolver = new AssemblyResolver(TestContext.DeploymentDirectory);
+                assemblyResolver.Init();
+                var inputCfg = TestHelpers.CreateSampleConfig(TestContext, @"UnitTests.dll", 6);
+                var engine = new ResourceStaticAnalysisEngine(inputCfg, true);
+                engine.ParsedCOList = TestHelpers.GenerateParesdCOs(6);
                 if (engine.StartRun())
                 {
                     engine.WaitForJobFinish();

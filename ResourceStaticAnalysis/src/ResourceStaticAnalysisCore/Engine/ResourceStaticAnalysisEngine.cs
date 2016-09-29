@@ -72,18 +72,18 @@ namespace Microsoft.ResourceStaticAnalysis.Core.Engine
         private readonly ManualResetEvent _coProcessingDone = new ManualResetEvent(false);
 
         private readonly ManualResetEvent _allOutputFinished = new ManualResetEvent(false);
-        
+
         /// <summary>
         /// DataAdapters are stored here; mapped from ClassificationObject type they create to a list of instances of adapters.
         /// There can be more than one type of data adapter producing the same CO type, as they may cover different data source combinations.
         /// </summary>
         private readonly Dictionary<Type, IList<ClassificationObjectAdapter>> _coAdapters = new Dictionary<Type, IList<ClassificationObjectAdapter>>();
-        
+
         /// <summary>
         /// The queue of DataSourcePackage objects that needs to be provided to ResourceStaticAnalysis Engine;
         /// </summary>
         private readonly Queue<DataSourcePackage> _dataSourcePackages;
-        
+
         /// <summary>
         /// Stores instances of Space for each type of Classification Object loaded by the engine.
         /// </summary>
@@ -96,12 +96,12 @@ namespace Microsoft.ResourceStaticAnalysis.Core.Engine
         /// ClassificationObject types known to the engine. These are configured using ResourceStaticAnalysis config.
         /// </summary>
         internal Dictionary<string, Type> _coTypes = new Dictionary<string, Type>();
-        
+
         /// <summary>
         /// Stores instances of output writers as defined in engine config.
         /// </summary>
         internal List<IOutputWriter> _outputWriters = new List<IOutputWriter>();
-        
+
         /// <summary>
         /// Engine config specified during construction time. Engine then organizes the creation of Spaces and COs based on the packages
         /// </summary>
@@ -139,6 +139,8 @@ namespace Microsoft.ResourceStaticAnalysis.Core.Engine
                 if (preLoadedCOs)
                 {
                     _usePreLoadedCOs = true;
+                    //Register ClassificationObject types
+                    RegisterCOTypes();
                     //Create instances of output writers
                     RegisterOutputWriters();
                 }
@@ -434,7 +436,7 @@ namespace Microsoft.ResourceStaticAnalysis.Core.Engine
         /// DataSourceProviders are stored here; mapped from Data Source type name they create to instance of provider.
         /// </summary>
         private readonly Dictionary<string, IDataSourceProvider> _dataSourceProviders = new Dictionary<string, IDataSourceProvider>();
-        
+
         /// <summary>
         /// Creates instances of data source provides based on the DataSourceProvider assemblies and stores them in a dictionary
         /// </summary>
@@ -550,7 +552,7 @@ namespace Microsoft.ResourceStaticAnalysis.Core.Engine
             //Therefore in multi-thread scenario each rule will be invoked as a separate job on the entire set of
             //COs. this may be less efficient in some cases, but allows us to preserve the current design.
             CurrentRuleManager.ClassifyObjectsAsynchronously(_preProcessedInput, ClassifyObjectsDone);
-            
+
             //we let the thread return, we will finalize engine asynchronously when all objects have been processed
             return;
         }
