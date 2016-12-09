@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Practices.AssemblyManagement;
+using Microsoft.ResourceStaticAnalysis.Configuration;
 using Microsoft.ResourceStaticAnalysis.Core.Engine;
 using Microsoft.ResourceStaticAnalysis.Core.Misc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -236,6 +237,19 @@ namespace Microsoft.ResourceStaticAnalysis.UnitTests.Tests
                 Assert.Fail("ResourceStaticAnalysis engine failed because {0}", ex.Message);
             }
         }
+
+        /// <summary>
+        /// Test method to ensure that macro xml files stored along with the assembly can be loaded correctly
+        /// </summary>
+        [TestMethod]
+        [DeploymentItem(@"TestMacroFile\ResourceStaticAnalysisConfigMacros.xml")]
+        public void ResourceStaticAnalysisCanLoadMacroXMLFileFromCodeBaseLocation()
+        {
+            var resourceStaticAnalysisConfigMacroHandler = ResourceStaticAnalysisConfigMacroHandler.Instance;
+            var expandedMacro = resourceStaticAnalysisConfigMacroHandler.ExpandMacros("@DummyMacro@");
+            Assert.IsTrue(expandedMacro == "DummyValue1;DummyValue2");
+        }
+
     }
 }
 

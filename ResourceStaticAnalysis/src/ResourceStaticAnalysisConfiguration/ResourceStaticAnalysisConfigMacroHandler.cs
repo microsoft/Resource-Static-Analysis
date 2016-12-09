@@ -244,7 +244,7 @@ namespace Microsoft.ResourceStaticAnalysis.Configuration
         private ResourceStaticAnalysisConfigMacros LoadConfigMacros()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            String pathToFile = Path.Combine(Path.GetDirectoryName(assembly.Location), macroDefinitionFile);
+            String pathToFile = Path.Combine(Path.GetDirectoryName(new Uri(assembly.CodeBase).LocalPath), macroDefinitionFile);
 
             ResourceStaticAnalysisConfigMacros macros = null;
             if (!File.Exists(pathToFile) || (macros = ResourceStaticAnalysisConfigMacros.Load(pathToFile)) == null)
