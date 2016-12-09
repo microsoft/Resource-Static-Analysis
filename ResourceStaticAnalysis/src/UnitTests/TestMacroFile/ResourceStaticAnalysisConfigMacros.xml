@@ -1,0 +1,5 @@
+﻿<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license. -->
+<!-- See LICENSE in the project root for license information -->
+<Macros>
+  <Macro name="DummyMacro" value="DummyValue1;DummyValue2" />
+</Macros>

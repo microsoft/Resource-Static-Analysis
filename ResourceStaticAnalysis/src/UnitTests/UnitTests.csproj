@@ -97,11 +97,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />
+    <Content Include="TestMacroFile\ResourceStaticAnalysisConfigMacros.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AssemblyResolver\AssemblyResolver.csproj">
       <Project>{dcba9d95-4cc1-4079-9bc1-cadfa34127e2}</Project>
       <Name>AssemblyResolver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResourceStaticAnalysisConfiguration\ResourceStaticAnalysisConfiguration.csproj">
+      <Project>{698421ce-40f2-46f8-9d7c-2384f2f681cb}</Project>
+      <Name>ResourceStaticAnalysisConfiguration</Name>
     </ProjectReference>
     <ProjectReference Include="..\ResourceStaticAnalysisCore\ResourceStaticAnalysisCore.csproj">
       <Project>{5a4a8fc1-cfaf-4faf-8099-de5dd8d0870b}</Project>
