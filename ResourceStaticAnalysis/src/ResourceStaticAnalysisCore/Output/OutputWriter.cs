@@ -78,8 +78,8 @@ namespace Microsoft.ResourceStaticAnalysis.Core.Output
         /// <summary>
         /// Calculates the overall result of running the rule on a single CO.
         /// </summary>
-        /// <remarks>The values of each Check() result are AND'ed to create the overall result.
-        /// That is, if all Check() calls returned True, then the result for the whole rule is set to True.
+        /// <remarks>The values of each Check() result are OR'ed to create the overall result.
+        /// That is, if any Check() call returned True, then the result for the whole rule is set to True.
         /// </remarks>
         /// <returns></returns>
         public bool SetTrueOrFalse()
